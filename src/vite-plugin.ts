@@ -18,7 +18,7 @@ export function gremllmPlugin(options: GremllmPluginOptions = {}): Plugin {
 
     async transform(code: string, id: string) {
       // Only process .tsx and .jsx files
-      if (!id.match(/\\.(tsx|jsx)$/)) {
+      if (!id.match(/\.(tsx|jsx)$/)) {
         return null;
       }
 
@@ -28,7 +28,7 @@ export function gremllmPlugin(options: GremllmPluginOptions = {}): Plugin {
       }
 
       // Look for Gremllm components in the code
-      const gremllmRegex = /<Gremllm\\s+prompt=["']([^"']+)["'][^>]*\\/>/g;
+      const gremllmRegex = /<Gremllm\s+prompt=["']([^"']+)["'][^>]*\/>/g;
       let match;
       let transformedCode = code;
       let hasTransformations = false;
@@ -68,9 +68,44 @@ export function gremllmPlugin(options: GremllmPluginOptions = {}): Plugin {
           // Create a unique component name
           const componentName = `GremllmGenerated_${hash}`;
           
-          // Wrap the generated code in a proper component
+          // Parse the generated code to separate the main function from additional declarations
+          const codeLines = component.code.split('\n');
+          let mainFunctionEnd = -1;
+          let braceCount = 0;
+          let inFunction = false;
+          
+          for (let i = 0; i < codeLines.length; i++) {
+            const line = codeLines[i];
+            if (line.includes('(props) =>') || line.includes('(props)=>')) {
+              inFunction = true;
+            }
+            if (inFunction) {
+              braceCount += (line.match(/{/g) || []).length;
+              braceCount -= (line.match(/}/g) || []).length;
+              if (braceCount === 0 && line.includes('};')) {
+                mainFunctionEnd = i;
+                break;
+              }
+            }
+          }
+          
+          let mainFunction, additionalCode;
+          if (mainFunctionEnd >= 0) {
+            mainFunction = codeLines.slice(0, mainFunctionEnd + 1).join('\n');
+            additionalCode = codeLines.slice(mainFunctionEnd + 1).join('\n').trim();
+          } else {
+            // Fallback - assume it's all the main function
+            mainFunction = component.code;
+            additionalCode = '';
+          }
+          
+          // Remove trailing semicolon from main function since we're wrapping in React.memo()
+          const cleanMainFunction = mainFunction.replace(/;\s*$/, '');
+          
           const wrappedCode = `
-const ${componentName} = React.memo(${component.code});
+${additionalCode}
+
+const ${componentName} = React.memo(${cleanMainFunction});
 ${componentName}.displayName = 'Gremllm(${prompt.substring(0, 30)}${prompt.length > 30 ? '...' : ''})';`;
 
           // Replace the Gremllm tag with the generated component
@@ -80,10 +115,10 @@ ${componentName}.displayName = 'Gremllm(${prompt.substring(0, 30)}${prompt.lengt
           const exportIndex = transformedCode.search(/^export/m);
           if (exportIndex !== -1) {
             transformedCode = transformedCode.slice(0, exportIndex) + 
-                             wrappedCode + '\\n\\n' + 
+                             wrappedCode + '\n\n' + 
                              transformedCode.slice(exportIndex);
           } else {
-            transformedCode = wrappedCode + '\\n\\n' + transformedCode;
+            transformedCode = wrappedCode + '\n\n' + transformedCode;
           }
 
           // Ensure React is imported
@@ -112,7 +147,7 @@ const ${errorComponentName} = () => (
 );`;
           
           transformedCode = transformedCode.replace(fullMatch, `<${errorComponentName} />`);
-          transformedCode = errorComponent + '\\n\\n' + transformedCode;
+          transformedCode = errorComponent + '\n\n' + transformedCode;
           
           importsToAdd.add('React');
           hasTransformations = true;
@@ -125,8 +160,9 @@ const ${errorComponentName} = () => (
 
       // Add React import if needed and not already present
       if (importsToAdd.has('React') && !transformedCode.includes('import React')) {
-        transformedCode = "import React from 'react';\\n" + transformedCode;
+        transformedCode = "import React from 'react';\n" + transformedCode;
       }
+
 
       return {
         code: transformedCode,
