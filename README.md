@@ -6,11 +6,13 @@ You head down to the crossroads and meet a tall man wearing a tall black hat. He
 import Gremllm from 'gremllm-react';
 
 export function App() {
-  return <Gremllm prompt="A simple calculator" />;
+  return <Gremllm prompt="A simple calculator with buttons for +, -, *, / and a display" />
 }
 ```
 
 Nervously you type `npm run build` into your terminal, then `npm run dev`. You open your browser and see a fully functional calculator with buttons, display, and working arithmetic.
+
+<img src="docs/calculator-demo.png" border=1>
 
 More or less.
 

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Gremllm } from '../../../src/Gremllm'
+import { Gremllm } from '../../../dist/Gremllm.js'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -30,7 +30,7 @@ function App() {
       <div style={{ margin: '2rem 0', padding: '1rem', border: '1px solid #ccc', borderRadius: '8px' }}>
         <h2>Gremllm Generated Components:</h2>
         
-        <Gremllm prompt="A simple calculator with buttons for +, -, *, / and a display" />
+        <Gremllm prompt="A simple calculator with buttons for +, -, *, / and a display, monospaced font. Orange buttons" />
         
         <Gremllm prompt="A todo list where you can add and remove items" />
         
