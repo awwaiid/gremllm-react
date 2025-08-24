@@ -42,8 +42,7 @@ jobs:
         working-directory: examples/demo
         run: npm run build
         env:
-          # Add a dummy API key for build - the build process generates cached components
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY || 'dummy-key-for-build' }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
