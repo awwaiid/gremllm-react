@@ -190,10 +190,35 @@ Generated components are cached in `.gremllm-cache/` directory:
 └── ...
 ```
 
-You can:
-- **Commit the cache** to avoid regenerating components
+### Cache Management
+
+**Manual cache clearing:**
+```bash
+# Clear all cached components
+rm -rf .gremllm-cache/
+
+# Clear specific component (find hash from filename)
+rm .gremllm-cache/a1b2c3d4.json
+```
+
+**Cache strategies:**
+- **Commit the cache** to avoid regenerating components across builds/deployments
 - **Add to .gitignore** to always generate fresh components
-- **Clear cache** by deleting the directory
+- **Selective clearing** - delete specific component cache files to regenerate only those components
+
+**Cache configuration:**
+```ts
+// vite.config.ts
+gremllmPlugin({
+  cacheDir: '.my-custom-cache',  // Custom cache directory
+  // ... other options
+})
+```
+
+**When cache is used:**
+- Cache is based on prompt hash - identical prompts reuse cached components
+- Changing a prompt will generate a new component
+- Cache persists across builds unless manually cleared
 
 ## TypeScript Support
 
