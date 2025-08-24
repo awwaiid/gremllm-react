@@ -4,6 +4,7 @@ import { gremllmPlugin } from '../../dist/vite-plugin.js'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/gremllm-react/',
   plugins: [
     react(),
     gremllmPlugin({
