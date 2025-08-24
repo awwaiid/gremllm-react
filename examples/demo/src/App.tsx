@@ -33,7 +33,7 @@ function App() {
         
         <div style={{ margin: '1.5rem 0', padding: '1rem', border: '1px solid #e0e0e0', borderRadius: '8px', backgroundColor: '#fafafa' }}>
           <pre style={{ backgroundColor: '#2d3748', color: '#e2e8f0', padding: '0.75rem', borderRadius: '4px', margin: '0 0 1rem 0', overflow: 'auto', fontSize: '12px', fontFamily: 'Monaco, Consolas, "Liberation Mono", monospace', wordBreak: 'break-all', whiteSpace: 'pre-wrap' }}>
-            <code>&lt;Gremllm prompt="A todo list where you can add and remove items" /&gt;</code>
+            <code>&lt;Gremllm prompt="A todo list where you can add and remove items. Store the items in localstorage" /&gt;</code>
           </pre>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Gremllm prompt="A todo list where you can add and remove items. Store the items in localstorage" />
