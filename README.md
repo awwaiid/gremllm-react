@@ -11,11 +11,11 @@ export function App() {
 }
 ```
 
-Nervously you type `npm run build` into your terminal, then `npm run dev`. You open your browser and see a fully functional calculator with buttons, display, and working arithmetic.
+Nervously you type `npm run dev` into your terminal. You open your browser and see a fully functional calculator with buttons, display, and working arithmetic.
 
 <img src="docs/calculator-demo.png" border=1 />
 
-More or less.
+It works! More or less.
 
 ---
 
