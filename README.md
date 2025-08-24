@@ -1,7 +1,7 @@
 # Gremllm React
 
 <img src="docs/gremllm.png" border=1 width=200 align=right style="margin-left: 1em" />
-You head down to the crossroads and meet a tall man wearing a tall black hat. He carries with him a cage -- not very large, he lifts it with one hand, but it is shrouded with a black cloth. "What's in there?" you ask. "Gremllm" the man says, straight faced. "What does it do?" you reply, eyebrow raised. He stares at you for a long moment, and says quietly "Whatever you ask. More or less. Good luck". The world flashes and you are back to staring at your code editor. It has only:
+You head down to the crossroads and meet a tall man wearing a tall black hat. He carries with him a cage -- not very large, he lifts it with one hand, but it is shrouded with a black cloth. "What's in there?" you ask. "Gremllm," the man says, straight-faced. "What does it do?" you reply, eyebrow raised. He stares at you for a long moment, and says quietly "Whatever you ask. More or less. Good luck." The world flashes and you are back to staring at your code editor. It has only:
 
 ```typescript
 import Gremllm from 'gremllm-react';
