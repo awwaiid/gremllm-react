@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Gremllm } from '../../../dist/Gremllm.js'
 import reactLogo from './assets/react.svg'
+import gremllmLogo from './assets/gremllm.png'
 import viteLogo from '/vite.svg'
 import './App.css'
 
@@ -8,6 +9,9 @@ function App() {
   return (
     <>
       <div>
+        <a href="https://github.com/awwaiid/gremllm-react" target="_blank">
+          <img src={gremllmLogo} className="logo" alt="Gremllm logo" />
+        </a>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
