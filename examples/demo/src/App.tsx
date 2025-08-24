@@ -36,7 +36,7 @@ function App() {
             <code>&lt;Gremllm prompt="A todo list where you can add and remove items" /&gt;</code>
           </pre>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Gremllm prompt="A todo list where you can add and remove items" />
+            <Gremllm prompt="A todo list where you can add and remove items. Store the items in localstorage" />
           </div>
         </div>
         
